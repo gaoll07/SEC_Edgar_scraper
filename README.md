@@ -5,6 +5,10 @@ This scraper contains two parts:
 index_scraper.py: downloads SEC index files, which are used for search SEC filings.
 file_scraper.py: downloads SEC filings with type specified by users.
 
+## Third party module
+You need to the module python-edgar to get the index_scraper.py to work.
+Installation: <pre><code>pip install python-edgar</code></pre>
+
 ## Usage
 For first time users, there are two steps, downloading the index files and the type of files you are interested in.
 For users who have downloaded index files, check Step 2.
