@@ -39,42 +39,42 @@ def scraper(idx_path, file_path, start_year, end_year, file_type, bs = False):
     if not file_path.endswith('/'):
         file_path += '/'
     for y in years:
-		meta = open(file_path + 'meta-' + str(y) + '.txt','w+') # generate meta data
-		error = open(file_path + 'error-' + str(y) + '.txt','w+')
-		if not os.path.exists(file_path + str(y)):
-			os.makedirs(file_path + str(y))
-		for root, dirs, files in os.walk(file_path + str(y)):
-			existing_files = [f for f in files if f.endswith('html')]
-		for root, dirs, files in os.walk(idx_path + str(y)):
-			files = [f for f in files if f.endswith('idx')]
-			for fi in files:
-				f = open(idx_path + str(y) + '/' + fi,'r')
-				for line in f:
-					ls = line.split('|')
-					txt_name = ls[0] + "-" + ls[2] + "-" + ls[3] + '.html'
-					if ls[2] == file_type:
-						if txt_name not in existing_files:
-							print line
-							# download files
-							try:
-								response = requests.get(ftp_path + ls[4].strip())
-							except requests.exceptions.ConnectionError:
-								error.write('cannot get:' + ftp_path + ls[4].strip());
-							#response = requests.get(ftp_path + ls[4].strip())
-							html = response.text
-							txt = open(file_path + str(y) + "/" + txt_name,'w+')
-							try:
-								txt.write(html)
-							except UnicodeEncodeError:
-								txt.write(html.encode('utf-8'))
-							txt.close()
-							date = ls[3].replace('-','')
-							meta.write(txt_name + " " + date + " " + ftp_path + ls[4].strip() + " " + ls[1] + " " + ls[0] + "\n")
-						else:
-							print 'skipping:', txt_name
-				f.close()
-		meta.close()
-		error.close()
+        meta = open(file_path + 'meta-' + str(y) + '.txt','w+') # generate meta data
+        error = open(file_path + 'error-' + str(y) + '.txt','w+')
+        if not os.path.exists(file_path + str(y)):
+            os.makedirs(file_path + str(y))
+        for root, dirs, files in os.walk(file_path + str(y)):
+            existing_files = [f for f in files if f.endswith('html')]
+        for root, dirs, files in os.walk(idx_path + str(y)):
+            files = [f for f in files if f.endswith('idx')]
+            for fi in files:
+                f = open(idx_path + str(y) + '/' + fi,'r')
+                for line in f:
+                    ls = line.split('|')
+                    txt_name = ls[0] + "-" + ls[2] + "-" + ls[3] + '.html'
+                    if ls[2] == file_type:
+                        if txt_name not in existing_files:
+                            print line
+                            # download files
+                            try:
+                                response = requests.get(ftp_path + ls[4].strip())
+                            except requests.exceptions.ConnectionError:
+                                error.write('cannot get:' + ftp_path + ls[4].strip());
+                            #response = requests.get(ftp_path + ls[4].strip())
+                            html = response.text
+                            txt = open(file_path + str(y) + "/" + txt_name,'w+')
+                            try:
+                                txt.write(html)
+                            except UnicodeEncodeError:
+                                txt.write(html.encode('utf-8'))
+                            txt.close()
+                            date = ls[3].replace('-','')
+                            meta.write(txt_name + " " + date + " " + ftp_path + ls[4].strip() + " " + ls[1] + " " + ls[0] + "\n")
+                        else:
+                            print 'skipping:', txt_name
+                f.close()
+        meta.close()
+        error.close()
 
 
 if __name__ == "__main__":
