@@ -19,7 +19,7 @@ For example, the following command downloads all index files (quarterly updated)
 python index_scraper.py -i /home/usr/index/ -s 2013 -e 2015
 </code></pre>
 
-### Step 1: download user specified files
+### Step 2: download user specified files
 In terminal, run the following command
 <pre><code>
 python index_scraper.py -i &lt idx_path&gt -f &lt file_path&gt -s &lt start_year&gt -e &lt end_year&gt -t &lt file_type&gt
