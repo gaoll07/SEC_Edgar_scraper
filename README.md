@@ -1,4 +1,7 @@
 # SEC_Edgar_scraper
+
+This scraper only works on Python 2.
+
 Download all kinds of SEC filings.
 
 This scraper contains two parts:
